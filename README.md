@@ -16,15 +16,11 @@ A minimal GitOps demonstration for OpenShift. Two apps are managed by Argo CD: o
 
    Open the printed URL in a browser and log in with the shown credentials.
 
-2. **Connect the repository to Argo CD**
+2. **Repository access**
 
-   Argo CD must be able to clone this Git repo. Choose one:
+   - **Public repo:** You do **not** need to connect or add the repo in Argo CD. Push this repo to your Git server; Argo CD will clone it without credentials. Skip to step 3.
 
-   - **Public repo (GitHub/GitLab/etc.)**  
-     Push this repo to your Git server. No extra Argo CD config is needed; the Application manifests will reference the repo URL.
-
-   - **Private repo**  
-     Add the repo in Argo CD with credentials.
+   - **Private repo:** Add the repo in Argo CD first (so it can use credentials to clone):
 
      **Via Argo CD UI:** Settings → Repositories → Connect Repo. Enter the repo URL, and username/password or SSH key, then Connect.
 
@@ -41,9 +37,9 @@ A minimal GitOps demonstration for OpenShift. Two apps are managed by Argo CD: o
 
      **Via OpenShift (Secret in `openshift-gitops`):** Create a Secret of type `argocd.argoproj.io/secret` with the repo URL and credentials so the GitOps operator picks it up.
 
-3. **Configure the Git repo URL in the Application manifests**
+3. **Set the Git repo URL in the Application manifests**
 
-   In `application-app1.yaml` and `application-app2.yaml`, set `spec.source.repoURL` to your Git repository URL (e.g. `https://github.com/YOUR_ORG/ocp-gitops-demo.git`). Use the same URL and branch/tag as in step 2.
+   In `application-app1.yaml` and `application-app2.yaml`, set `spec.source.repoURL` to your Git repository URL (e.g. `https://github.com/aramflh/ocp-gitops-demo.git`) and `targetRevision` to your branch (e.g. `main` or `master`).
 
 4. **Register the applications with Argo CD**
 
