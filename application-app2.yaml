@@ -1,0 +1,25 @@
+# Argo CD Application: empty app (add manifests to apps/app2 during demo)
+# Apply with: oc apply -f application-app2.yaml
+# When you push files to apps/app2, Argo CD will sync and they appear in the cluster.
+# Update repoURL to your Git repo before applying.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-app-empty
+  namespace: openshift-gitops
+spec:
+  destination:
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    directory:
+      recurse: true
+    path: apps/app2
+    repoURL: https://github.com/YOUR_ORG/ocp-gitops-demo.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: 20
