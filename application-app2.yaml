@@ -15,7 +15,7 @@ spec:
     directory:
       recurse: true
     path: apps/app2
-    repoURL: https://github.com/YOUR_ORG/ocp-gitops-demo.git
+    repoURL: https://github.com/aramflh/ocp-gitops-demo.git
     targetRevision: main
   syncPolicy:
     automated:
